@@ -1,23 +1,93 @@
-import logo from './logo.svg';
 import './App.css';
+import lupa from './lupa.svg';
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Recipedetailspage from './Recipedetailspage';
 
 function App() {
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState(null);
+  const [results, setResults] = useState([]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleClick();
+    }
+  };
+
+  const handleClick = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`,
+      );
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const data = await response.json();
+      setResults(data.meals);
+    } catch (e) {
+      setError(e.message);
+    }
+
+    setLoading(false);
+  };
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <BrowserRouter>
+        <Routes>
+          <Route
+            path="/Receipedetailspage"
+            element={<Recipedetailspage />}
+          ></Route>
+          <Route path="*" element={<Naoencontrada />}></Route>
+        </Routes>
+      </BrowserRouter> */}
+      <BrowserRouter>
+        <h1>Busque sua receita favorita</h1>
+        <div className="search-box">
+          <input
+            className="meal-input-field"
+            type="text"
+            placeholder="Nome do prato"
+            value={searchTerm}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+          />
+          <img className="lupa" src={lupa} alt="" onClick={handleClick} />
+        </div>
+        {loading && <div className="loader"></div>}
+        {error && <div>{error}</div>}
+        {results !== null ? (
+          <div className="recipes-box">
+            {results.map((result) => (
+              <Link key={result.idMeal} to={`/recipe/${result.idMeal}`}>
+                <div className="recipe__box">
+                  <p>{result.strMeal}</p>
+                  <img
+                    className="recipe__image"
+                    src={result.strMealThumb}
+                    alt="Meal"
+                  />
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="no-results">Nenhum resultado encontrado!</div>
+        )}
+        <Routes>
+          <Route path="recipe/:id" element={<Recipedetailspage />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

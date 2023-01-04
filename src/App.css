@@ -1,38 +1,124 @@
+/* * {
+  outline: 1px solid red;
+} */
+@import url('https://fonts.googleapis.com/css?family=Georgia');
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  font-family: 'Georgia', serif;
+  width: 50%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: calc(100vh - 15px);
 }
 
-.App-link {
-  color: #61dafb;
+.lupa {
+  width: 40px;
+  height: 40px;
+  margin-top: 15px;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.search-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.no-results {
+  font-family: 'Georgia', serif;
+  font-size: 25px;
+  margin-top: 25px;
+}
+
+.meal-input-field {
+  font-family: 'Georgia', serif;
+  padding-left: 10px;
+  height: 35px;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 15px;
+  outline: none;
+}
+
+.meal-input-field:focus {
+  background-color: #F5F5F5;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin-top: -25px;
+  margin-left: -25px;
+  
+  border-top: 5px solid #804500;
+  border-right: 5px solid #efefef;
+  border-bottom: 5px solid #efefef;
+  border-left: 5px solid #efefef;
+  
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
   }
-  to {
+
+@keyframes spin {
+  100% {
     transform: rotate(360deg);
   }
+}
+
+.recipes-box {
+  max-height: 100vh;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
+  background-color: #e6b480;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #804500;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f4d9b6;
+}
+
+.recipe__box {
+  box-sizing: border-box;
+  padding-left: 10px;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe__box:hover {
+  opacity: .85;
+  cursor: pointer;
+}
+
+.recipe__box p {
+  font-size: 20px;
+}
+
+.recipe__box img {
+  width: 20%;
+  height: 100%;
+  border-radius: 5px;
 }
