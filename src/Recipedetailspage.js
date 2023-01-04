@@ -36,10 +36,11 @@ const RecipeDetailsPage = () => {
   if (error) {
     return <div>{error}</div>;
   }
+
   if (!recipe) {
-    return <div>Nenhuma receita encontrada</div>;
+    return <div>No recipes found</div>;
   }
-  console.log(recipe);
+
   return <div>{`${recipe[0].strMeasure1} ${recipe[0].strIngredient1}`}</div>;
 };
 

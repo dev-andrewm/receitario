@@ -52,12 +52,12 @@ function App() {
         </Routes>
       </BrowserRouter> */}
       <BrowserRouter>
-        <h1>Busque sua receita favorita</h1>
+        <h1>Search for your favorite recipe</h1>
         <div className="search-box">
           <input
             className="meal-input-field"
             type="text"
-            placeholder="Nome do prato"
+            placeholder="Dish name"
             value={searchTerm}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
@@ -69,7 +69,11 @@ function App() {
         {results !== null ? (
           <div className="recipes-box">
             {results.map((result) => (
-              <Link key={result.idMeal} to={`/recipe/${result.idMeal}`}>
+              <Link
+                className="link"
+                key={result.idMeal}
+                to={`/recipe/${result.idMeal}`}
+              >
                 <div className="recipe__box">
                   <p>{result.strMeal}</p>
                   <img
@@ -82,7 +86,7 @@ function App() {
             ))}
           </div>
         ) : (
-          <div className="no-results">Nenhum resultado encontrado!</div>
+          <div className="no-results">No results found!</div>
         )}
         <Routes>
           <Route path="recipe/:id" element={<Recipedetailspage />}></Route>

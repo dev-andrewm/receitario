@@ -122,3 +122,11 @@
   height: 100%;
   border-radius: 5px;
 }
+
+a {
+  text-decoration: none;
+}
+
+.recipe__box > p {
+  color: black;
+}
