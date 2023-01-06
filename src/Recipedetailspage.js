@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const RecipeDetailsPage = () => {
   const { id } = useParams();
@@ -30,7 +30,7 @@ const RecipeDetailsPage = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="loader"></div>;
   }
 
   if (error) {
@@ -41,7 +41,36 @@ const RecipeDetailsPage = () => {
     return <div>No recipes found</div>;
   }
 
-  return <div>{`${recipe[0].strMeasure1} ${recipe[0].strIngredient1}`}</div>;
+  return (
+    <>
+      <Link className="link-back" to={'/'}>
+        &lt;&lt;Back
+      </Link>
+      <div className="recipe-details-box">
+        <div className="recipe-details">
+          <h1>{recipe[0].strMeal}</h1>
+          <p>Ingredients:</p>
+          <ul>
+            {Object.entries(recipe[0])
+              .filter(
+                ([key, value]) =>
+                  /^strIngredient\d+$/.test(key) && value !== '',
+              )
+              .map(([key, value]) => (
+                <li>
+                  {`${recipe[0][`strMeasure${key.match(/\d+/)[0]}`]} ${value}`}
+                </li>
+              ))}
+          </ul>
+          <p>Instructions:</p>
+          <p>{recipe[0].strInstructions}</p>
+        </div>
+        <div className="recipe-img">
+          <img src={recipe[0].strMealThumb} alt="Recipe" />
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default RecipeDetailsPage;
