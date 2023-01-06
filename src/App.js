@@ -1,12 +1,18 @@
 import './App.css';
 import SearchPage from './SearchPage';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Recipedetailspage from './Recipedetailspage';
 
 function App() {
   return (
-    <div className="App">
-      <SearchPage />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<SearchPage />}></Route>
+          <Route path="recipe/:id" element={<Recipedetailspage />}></Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

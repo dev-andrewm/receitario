@@ -1,7 +1,6 @@
 import lupa from './lupa.svg';
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Recipedetailspage from './Recipedetailspage';
+import { Link } from 'react-router-dom';
 
 const SearchPage = () => {
   const [loading, setLoading] = useState(false);
@@ -40,7 +39,7 @@ const SearchPage = () => {
   };
 
   return (
-    <BrowserRouter>
+    <>
       <h1>Search for your favorite recipe</h1>
       <div className="search-box">
         <input
@@ -77,10 +76,7 @@ const SearchPage = () => {
       ) : (
         <div className="no-results">No results found!</div>
       )}
-      <Routes>
-        <Route path="recipe/:id" element={<Recipedetailspage />}></Route>
-      </Routes>
-    </BrowserRouter>
+    </>
   );
 };
 
