@@ -54,7 +54,9 @@ const RecipeDetailsPage = () => {
             {Object.entries(recipe[0])
               .filter(
                 ([key, value]) =>
-                  /^strIngredient\d+$/.test(key) && value !== '',
+                  /^strIngredient\d+$/.test(key) &&
+                  value !== '' &&
+                  value !== null,
               )
               .map(([key, value]) => (
                 <li>
